@@ -14,6 +14,8 @@ RSpec.describe TradelinesController, type: :controller do
 
     it 'responds with a 200' do
       get :show, params: { id: tradeline.id }
+      response_amount = JSON.parse(response.body)["amount"].to_f
+      expect(response_amount).to eq(3223.54)
       expect(response).to have_http_status(:ok)
     end
 
