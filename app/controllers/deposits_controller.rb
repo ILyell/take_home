@@ -2,16 +2,12 @@ class DepositsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
     def create 
-        tradeline = Tradeline.find(deposit_create[:tradeline_id])
-        trade_value = tradeline.amount 
-        if (trade_value - deposit_create[:amount]) <= 0
-            render json: "Not enough balance in tradeline", status: 404
-        else 
-            deposit = Deposit.create(deposit_create)
-            trade_value -= deposit.amount
-            tradeline.amount = trade_value
-            tradeline.save
-            render json: deposit, status: :created
+        tradeline = Tradeline.find(deposit_create_params[:tradeline_id])
+        if tradeline.transaction(deposit_create_params[:amount]) 
+            Deposit.create(deposit_create_params)
+            render json: 'Deposit Successful', status: 201
+        else
+            render json: 'Insuffceint Amount', status: 404
         end
     end
 
@@ -31,7 +27,7 @@ class DepositsController < ApplicationController
         render json: 'not_found', status: :not_found
     end
 
-    def deposit_create
+    def deposit_create_params
         params.require(:deposit).permit(:deposit_date, :amount, :tradeline_id)
     end
 end
