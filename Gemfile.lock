@@ -204,6 +204,8 @@ GEM
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
     ruby2_keywords (0.0.5)
+    shoulda-matchers (6.2.0)
+      activesupport (>= 5.2.0)
     sqlite3 (1.6.8)
       mini_portile2 (~> 2.8.0)
     stringio (3.0.9)
@@ -232,6 +234,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.2)
   rspec-rails
+  shoulda-matchers
   sqlite3 (~> 1.4)
   tzinfo-data
 
