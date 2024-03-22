@@ -5,7 +5,7 @@ class DepositsController < ApplicationController
         tradeline = Tradeline.find(deposit_create[:tradeline_id])
         trade_value = tradeline.amount 
         if (trade_value - deposit_create[:amount]) <= 0
-            render json: deposit_create[:amount], status: :not_found
+            render json: "Not enough balance in tradeline", status: 404
         else 
             deposit = Deposit.create(deposit_create)
             trade_value -= deposit.amount
@@ -26,6 +26,10 @@ class DepositsController < ApplicationController
     
 
     private
+
+    def not_found
+        render json: 'not_found', status: :not_found
+    end
 
     def deposit_create
         params.require(:deposit).permit(:deposit_date, :amount, :tradeline_id)

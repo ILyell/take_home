@@ -5493,3 +5493,121 @@ Completed 404 Not Found in 0ms (Views: 0.0ms | ActiveRecord: 0.0ms | Allocations
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Create (0.3ms)[0m  [1m[32mINSERT INTO "tradelines" ("name", "amount", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Some Credit Card"], ["amount", 3223.54], ["created_at", "2024-03-22 02:06:42.199763"], ["updated_at", "2024-03-22 02:06:42.199763"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/tradelines?id=1" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by TradelinesController#index as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines"[0m
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 1682)
+Started POST "/deposits" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by DepositsController#create as HTML
+  Parameters: {"deposit"=>{"deposit_date"=>"1/1/1", "amount"=>1000, "tradeline_id"=>1}}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Tradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDeposit Create (0.1ms)[0m  [1m[32mINSERT INTO "deposits" ("amount", "deposit_date", "tradeline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["amount", 1000], ["deposit_date", "1/1/1"], ["tradeline_id", 1], ["created_at", "2024-03-22 02:06:42.219128"], ["updated_at", "2024-03-22 02:06:42.219128"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Update (0.1ms)[0m  [1m[33mUPDATE "tradelines" SET "amount" = ?, "updated_at" = ? WHERE "tradelines"."id" = ?[0m  [["amount", 2223.54], ["updated_at", "2024-03-22 02:06:42.219492"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 5ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 8571)
+Started GET "/tradelines?id=1" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by TradelinesController#index as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines"[0m
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 232)
+Started POST "/deposits" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by DepositsController#create as HTML
+  Parameters: {"deposit"=>{"deposit_date"=>"1/2/1", "amount"=>500, "tradeline_id"=>1}}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Tradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDeposit Create (0.1ms)[0m  [1m[32mINSERT INTO "deposits" ("amount", "deposit_date", "tradeline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["amount", 500], ["deposit_date", "1/2/1"], ["tradeline_id", 1], ["created_at", "2024-03-22 02:06:42.221027"], ["updated_at", "2024-03-22 02:06:42.221027"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Update (0.0ms)[0m  [1m[33mUPDATE "tradelines" SET "amount" = ?, "updated_at" = ? WHERE "tradelines"."id" = ?[0m  [["amount", 1723.54], ["updated_at", "2024-03-22 02:06:42.221325"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 1ms (Views: 0.0ms | ActiveRecord: 0.2ms | Allocations: 1370)
+Started GET "/tradelines?id=1" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by TradelinesController#index as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines"[0m
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 232)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Create (0.1ms)[0m  [1m[32mINSERT INTO "tradelines" ("name", "amount", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Some Credit Card"], ["amount", 3223.54], ["created_at", "2024-03-22 02:06:42.222692"], ["updated_at", "2024-03-22 02:06:42.222692"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/deposits" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by DepositsController#create as HTML
+  Parameters: {"deposit"=>{"deposit_date"=>"1/1/1", "amount"=>10000, "tradeline_id"=>1}}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 404 Not Found in 0ms (Views: 0.0ms | ActiveRecord: 0.0ms | Allocations: 261)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Create (0.1ms)[0m  [1m[32mINSERT INTO "tradelines" ("name", "amount", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Some Credit Card"], ["amount", 3223.54], ["created_at", "2024-03-22 02:06:42.223727"], ["updated_at", "2024-03-22 02:06:42.223727"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDeposit Create (0.0ms)[0m  [1m[32mINSERT INTO "deposits" ("amount", "deposit_date", "tradeline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["amount", 100], ["deposit_date", "1/1/1"], ["tradeline_id", 1], ["created_at", "2024-03-22 02:06:42.224175"], ["updated_at", "2024-03-22 02:06:42.224175"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/deposits?id=1" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by DepositsController#index as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDeposit Load (0.0ms)[0m  [1m[34mSELECT "deposits".* FROM "deposits" WHERE "deposits"."tradeline_id" = ?[0m  [["tradeline_id", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 1497)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Create (0.1ms)[0m  [1m[32mINSERT INTO "tradelines" ("name", "amount", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Some Credit Card"], ["amount", 3223.54], ["created_at", "2024-03-22 02:06:42.227062"], ["updated_at", "2024-03-22 02:06:42.227062"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Load (0.1ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDeposit Create (0.0ms)[0m  [1m[32mINSERT INTO "deposits" ("amount", "deposit_date", "tradeline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["amount", 100], ["deposit_date", "1/1/1"], ["tradeline_id", 1], ["created_at", "2024-03-22 02:06:42.227671"], ["updated_at", "2024-03-22 02:06:42.227671"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDeposit Create (0.0ms)[0m  [1m[32mINSERT INTO "deposits" ("amount", "deposit_date", "tradeline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["amount", 400], ["deposit_date", "1/2/1"], ["tradeline_id", 1], ["created_at", "2024-03-22 02:06:42.228101"], ["updated_at", "2024-03-22 02:06:42.228101"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Load (0.1ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDeposit Create (0.0ms)[0m  [1m[32mINSERT INTO "deposits" ("amount", "deposit_date", "tradeline_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["amount", 200], ["deposit_date", "1/3/1"], ["tradeline_id", 1], ["created_at", "2024-03-22 02:06:42.228512"], ["updated_at", "2024-03-22 02:06:42.228512"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/deposits?id=1" for 127.0.0.1 at 2024-03-21 21:06:42 -0500
+Processing by DepositsController#index as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDeposit Load (0.0ms)[0m  [1m[34mSELECT "deposits".* FROM "deposits" WHERE "deposits"."tradeline_id" = ?[0m  [["tradeline_id", 1]]
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 594)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+Processing by TradelinesController#index as HTML
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines"[0m
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 208)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTradeline Create (0.1ms)[0m  [1m[32mINSERT INTO "tradelines" ("name", "amount", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Some Credit Card"], ["amount", 3223.54], ["created_at", "2024-03-22 02:06:42.231539"], ["updated_at", "2024-03-22 02:06:42.231539"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by TradelinesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 256)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+Processing by TradelinesController#show as HTML
+  Parameters: {"id"=>"1000"}
+  [1m[36mTradeline Load (0.0ms)[0m  [1m[34mSELECT "tradelines".* FROM "tradelines" WHERE "tradelines"."id" = ? LIMIT ?[0m  [["id", 1000], ["LIMIT", 1]]
+Completed 404 Not Found in 0ms (Views: 0.0ms | ActiveRecord: 0.0ms | Allocations: 220)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
